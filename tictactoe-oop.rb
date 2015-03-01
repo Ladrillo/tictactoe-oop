@@ -12,6 +12,7 @@ class Engine
 	def game_main_loop
 		system 'clear'
 		display_welcome_message
+		instructions
 		loop do
 			@state = State.new
 			first_move?
@@ -19,13 +20,6 @@ class Engine
 				state.human_turn ? move = human.move(state) : move = computer.move(state)
 				state.update_state(move)
 				state.display
-				# puts state.game_over
-				# puts state.human_won
-				# puts state.computer_won
-				# puts state.grid_full
-				# p state.lines
-				# p state.squares
-				# binding.pry	
 			end 
 			display_game_over_message
 			break unless play_again?
@@ -56,6 +50,19 @@ class Engine
 	def play_again?
 		puts "\nDo you want to play again? (y/n)"
 		gets.chomp.downcase == "y"
+	end
+
+	def instructions
+		puts "
+      |     |
+   7  |  8  |  9 
+ _____|_____|_____
+      |     |
+   4  |  5  |  6 
+ _____|_____|_____
+      |     |
+   1  |  2  |  3
+      |     |"
 	end
 end
 
@@ -166,32 +173,6 @@ class Grid
 
 	def initialize
 		@squares = {'1':' ', '2':' ', '3':' ', '4':' ', '5':' ', '6':' ', '7':' ', '8':' ', '9':' '}
-	end
-
-	def display
-		puts "
-      |     |
-   #{squares[:'7']}  |  #{squares[:'8']}  |  #{squares[:'9']}
- _____|_____|_____
-      |     |
-   #{squares[:'4']}  |  #{squares[:'5']}  |  #{squares[:'6']}
- _____|_____|_____
-      |     |
-   #{squares[:'1']}  |  #{squares[:'2']}  |  #{squares[:'3']}
-      |     |"
-	end
-
-	def instructions
-		puts "
-      |     |
-   7  |  8  |  9 
- _____|_____|_____
-      |     |
-   4  |  5  |  6 
- _____|_____|_____
-      |     |
-   1  |  2  |  3
-      |     |"
 	end
 end
 
